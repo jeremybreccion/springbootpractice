@@ -8,6 +8,8 @@ import javax.validation.constraints.*;
 /**
  * set combination of first name and last name as unique
  * set email as unique
+ *
+ * JPA does not support case insensitive unique constraints
  */
 
 @Entity
@@ -41,28 +43,35 @@ public class Customer extends Person {
     @ColumnDefault("false")
     private boolean subscribed;
 
-    //include mobile number string? here
+    /**
+     * include other attributes such as mobile number, date of membership, etc
+     *
+     * so far, all customers are the same. meaning there is no premium member
+     *
+     * do not store billing for confidentiality
+     */
 
     public Customer() {
     }
 
-    public Customer(@NotNull @NotBlank @Size(max = 50) String firstName,
-                    @NotNull @NotBlank @Size(max = 30) String lastName,
-                    @Email @NotNull @NotBlank @Size(max = 30) String email) {
-        super(firstName, lastName);
-        this.email = email;
-        //default values not working!
-        //set to 0
-        this.points = 0;
-        //set to false
-        this.subscribed = false;
-    }
+    //this constructor is kinda useless
+//    public Customer(@NotNull @NotBlank @Size(max = 50) String firstName,
+//                    @NotNull @NotBlank @Size(max = 30) String lastName,
+//                    @Email @NotNull @NotBlank @Size(max = 30) String email) {
+//        super(firstName, lastName);
+//        this.email = email;
+//        //default values not working!
+//        //set to 0
+//        this.points = 0;
+//        //set to false
+//        this.subscribed = false;
+//    }
 
     public Customer(@NotNull @NotBlank @Size(max = 50) String firstName,
                     @NotNull @NotBlank @Size(max = 30) String lastName,
-                    @Size(max = 200) String shippingAddress,
                     @Email @NotNull @NotBlank @Size(max = 30) String email,
-                    float points,
+                    @Size(max = 200) String shippingAddress,
+                    double points,
                     boolean isSubscribed) {
         super(firstName, lastName);
         this.shippingAddress = shippingAddress;

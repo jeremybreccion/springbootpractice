@@ -107,8 +107,8 @@ public class CustomerService implements CustomerServiceInterface {
     }
 
     private List<CustomerDTO> convertToDTOList(List<Customer> customerList) {
-        return customerList.stream().map(customer -> {
-            return mapper.toFullDTO(customer);
-        }).collect(Collectors.toList());
+        return customerList.stream()
+                .map(customer -> mapper.toFullDTO(customer))
+                .collect(Collectors.toList());
     }
 }
